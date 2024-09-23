@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add Widget After Content\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-29 20:41+0000\n"
+"PO-Revision-Date: 2021-12-29 20:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Mexico)\n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.5; wp-5.8.2\n"
+"X-Domain: add-widget-after-content"
+
+#: partials/awac-options-display.php:44
+msgid " leave an honest review"
+msgstr " dejar una reseña honesta"
+
+#. Name of the plugin
+#: add-widget-after-content-admin.php:339
+msgid "Add Widget After Content"
+msgstr "Agregar widget después del contenido"
+
+#: add-widget-after-content-admin.php:55 partials/awac-options-display.php:17
+msgid "Add Widget After Content Options"
+msgstr "Agregar widget después de las opciones de contenido"
+
+#: add-widget-after-content-admin.php:118
+msgid "Add-ons"
+msgstr "Complementos"
+
+#: add-widget-after-content-admin.php:212
+msgid "Addons"
+msgstr "Complementos"
+
+#: add-widget-after-content.php:105
+msgid "After Content"
+msgstr "Después del contenido"
+
+#. Author of the plugin
+msgid "Arelthia Phillips"
+msgstr "Arelthia Phillips"
+
+#: add-widget-after-content-admin.php:111
+msgid "General"
+msgstr "General"
+
+#. Author URI of the plugin
+msgid "http://www.arelthiaphillips.com"
+msgstr "http://www.arelthiaphillips.com"
+
+#. URI of the plugin
+msgid "https://pintopsolutions.com/downloads/add-widget-after-content/"
+msgstr "https://pintopsolutions.com/downloads/add-widget-after-content/"
+
+#: partials/awac-options-display.php:40
+msgid ""
+"Need help? Or have an idea how this plugin can be made better. Reach out"
+msgstr ""
+"¿Necesitas ayuda? O tenga una idea de cómo se puede mejorar este complemento."
+" Alcanzar"
+
+#: add-widget-after-content-admin.php:339
+msgid "Please "
+msgstr "Por favor"
+
+#: add-widget-after-content-admin.php:145
+msgid "Post Categories"
+msgstr "Categorías de publicaciones"
+
+#: add-widget-after-content-admin.php:168
+msgid "Post Formats"
+msgstr "Formatos de publicación"
+
+#: add-widget-after-content-admin.php:157
+msgid "Post Types"
+msgstr "Tipos de publicaciones"
+
+#: add-widget-after-content-admin.php:339
+msgid "rate us on "
+msgstr "califícanos en"
+
+#: add-widget-after-content.php:231
+msgid "Remove widget after content for this post."
+msgstr "Elimina el widget después del contenido de esta publicación."
+
+#: add-widget-after-content-admin.php:113
+#: add-widget-after-content-admin.php:199
+msgid "Styles"
+msgstr "Estilos"
+
+#: add-widget-after-content-admin.php:339
+msgid "Thank you for using "
+msgstr "Gracias por usar"
+
+#: add-widget-after-content-admin.php:145
+msgid "The widget will not show on post categories that are checked"
+msgstr ""
+"El widget no se mostrará en las categorías de publicaciones que estén "
+"marcadas."
+
+#: add-widget-after-content-admin.php:168
+msgid "The widget will not show on post formats that are checked"
+msgstr ""
+"El widget no se mostrará en los formatos de publicación que estén marcados."
+
+#: add-widget-after-content-admin.php:157
+msgid "The widget will not show on post types that are checked"
+msgstr ""
+"El widget no se mostrará en los tipos de publicaciones que estén marcadas."
+
+#: add-widget-after-content-admin.php:295
+msgid "Theme does not support post formats"
+msgstr "El tema no admite formatos de publicación"
+
+#. Description of the plugin
+msgid ""
+"This plugin adds a widget area after post content before the comments. You "
+"can also tell it not to display on a specific post or post format."
+msgstr ""
+"Este complemento agrega un área de widgets después de publicar contenido "
+"antes de los comentarios. También puede indicarle que no se muestre en una "
+"publicación o formato de publicación específico."
+
+#: add-widget-after-content.php:106
+msgid ""
+"This widget section shows after the content, but before comments on single "
+"post pages"
+msgstr ""
+"Esta sección de widgets se muestra después del contenido, pero antes de los "
+"comentarios en páginas de publicaciones individuales."
+
+#: add-widget-after-content-admin.php:321
+msgid "Used to specify the order in which the widget area will be displayed."
+msgstr ""
+"Se utiliza para especificar el orden en el que se mostrará el área del "
+"widget."
+
+#: partials/awac-options-display.php:44
+msgid "We invite you to"
+msgstr "Te invitamos a"
+
+#: add-widget-after-content-admin.php:135
+msgid "Where to show the widget area"
+msgstr "Dónde mostrar el área de widgets"
+
+#: add-widget-after-content-admin.php:56
+msgid "Widget After Content"
+msgstr "Widget después del contenido"
+
+#: add-widget-after-content-admin.php:181
+msgid "Widget Priority"
+msgstr "Prioridad de widget"

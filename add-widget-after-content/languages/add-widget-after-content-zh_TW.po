@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add Widget After Content\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-29 20:41+0000\n"
+"PO-Revision-Date: 2021-12-29 20:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese (Taiwan)\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.5; wp-5.8.2\n"
+"X-Domain: add-widget-after-content"
+
+#: partials/awac-options-display.php:44
+msgid " leave an honest review"
+msgstr " 留下誠實的評論"
+
+#. Name of the plugin
+#: add-widget-after-content-admin.php:339
+msgid "Add Widget After Content"
+msgstr "在內容之後添加小部件"
+
+#: add-widget-after-content-admin.php:55 partials/awac-options-display.php:17
+msgid "Add Widget After Content Options"
+msgstr "在內容選項之後添加小部件"
+
+#: add-widget-after-content-admin.php:118
+msgid "Add-ons"
+msgstr "附加組件"
+
+#: add-widget-after-content-admin.php:212
+msgid "Addons"
+msgstr "插件"
+
+#: add-widget-after-content.php:105
+msgid "After Content"
+msgstr "內容後"
+
+#. Author of the plugin
+msgid "Arelthia Phillips"
+msgstr "阿瑞西婭·菲利普斯"
+
+#: add-widget-after-content-admin.php:111
+msgid "General"
+msgstr "一般的"
+
+#. Author URI of the plugin
+msgid "http://www.arelthiaphillips.com"
+msgstr "http://www.arelthiaphillips.com"
+
+#. URI of the plugin
+msgid "https://pintopsolutions.com/downloads/add-widget-after-content/"
+msgstr "https://pintopsolutions.com/downloads/add-widget-after-content/"
+
+#: partials/awac-options-display.php:40
+msgid ""
+"Need help? Or have an idea how this plugin can be made better. Reach out"
+msgstr "需要幫忙？或者知道如何改進這個插件。伸手"
+
+#: add-widget-after-content-admin.php:339
+msgid "Please "
+msgstr "請"
+
+#: add-widget-after-content-admin.php:145
+msgid "Post Categories"
+msgstr "帖子分類"
+
+#: add-widget-after-content-admin.php:168
+msgid "Post Formats"
+msgstr "帖子格式"
+
+#: add-widget-after-content-admin.php:157
+msgid "Post Types"
+msgstr "帖子類型"
+
+#: add-widget-after-content-admin.php:339
+msgid "rate us on "
+msgstr "評價我們"
+
+#: add-widget-after-content.php:231
+msgid "Remove widget after content for this post."
+msgstr "在此帖子的內容之後刪除小部件。"
+
+#: add-widget-after-content-admin.php:113
+#: add-widget-after-content-admin.php:199
+msgid "Styles"
+msgstr "樣式"
+
+#: add-widget-after-content-admin.php:339
+msgid "Thank you for using "
+msgstr "感謝您使用"
+
+#: add-widget-after-content-admin.php:145
+msgid "The widget will not show on post categories that are checked"
+msgstr "小部件不會顯示在選中的帖子類別上"
+
+#: add-widget-after-content-admin.php:168
+msgid "The widget will not show on post formats that are checked"
+msgstr "小部件不會顯示在選中的帖子格式上"
+
+#: add-widget-after-content-admin.php:157
+msgid "The widget will not show on post types that are checked"
+msgstr "小部件不會顯示在選中的帖子類型上"
+
+#: add-widget-after-content-admin.php:295
+msgid "Theme does not support post formats"
+msgstr "主題不支持帖子格式"
+
+#. Description of the plugin
+msgid ""
+"This plugin adds a widget area after post content before the comments. You "
+"can also tell it not to display on a specific post or post format."
+msgstr "這個插件在評論之前的帖子內容之後添加了一個小部件區域。您還可以告訴它不要顯示在特定的帖子或帖子格式上。"
+
+#: add-widget-after-content.php:106
+msgid ""
+"This widget section shows after the content, but before comments on single "
+"post pages"
+msgstr "此小部件部分顯示在內容之後，但在單個帖子頁面上的評論之前"
+
+#: add-widget-after-content-admin.php:321
+msgid "Used to specify the order in which the widget area will be displayed."
+msgstr "用於指定小部件區域的顯示順序。"
+
+#: partials/awac-options-display.php:44
+msgid "We invite you to"
+msgstr "我們邀請您"
+
+#: add-widget-after-content-admin.php:135
+msgid "Where to show the widget area"
+msgstr "在哪裡顯示小部件區域"
+
+#: add-widget-after-content-admin.php:56
+msgid "Widget After Content"
+msgstr "內容後的小部件"
+
+#: add-widget-after-content-admin.php:181
+msgid "Widget Priority"
+msgstr "小部件優先級"
