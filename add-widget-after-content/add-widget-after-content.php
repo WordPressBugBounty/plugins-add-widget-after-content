@@ -14,11 +14,10 @@
  * Plugin URI: 			https://wordpress.org/plugins/add-widget-after-content/
  * Author: 				Arelthia Phillips
  * Author URI: 			https://arelthiaphillips.com
- * Version: 			2.4.6
+ * Version: 			2.5.1
  * License: 			GPL-3.0+
  * License URI:       	http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: 		add-widget-after-content
- * Domain Path:       	/languages
  */
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -50,7 +49,7 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 * @var      string
 		 */
 		protected $plugin_slug = 'add-widget-after-content';
-		protected $plugin_version = '2.4.6';
+		protected $plugin_version = '2.5.1';
 		protected $settings;
 		/**
 		 * Initialize the plugin 
@@ -72,27 +71,31 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 * 
 		 */
 		public static function activate() {
-            if (get_option('awac_priority') === false){
-                update_option('awac_priority', '10');
-            }
 
+			if (get_option('awac_priority') === false) {
+				update_option('awac_priority', '10');
+			}
 
-
-
-			update_option('awac_extensions', array());
 		}
 
 
 		/**
 		 * Get the priority to use when filtering the content
+		 *
+		 * @return int
 		 */
-		public static function get_content_filter_priority(){
-            if (get_option('awac_priority') === false){
-                update_option('awac_priority', '10');
+		public static function get_content_filter_priority() {
+            $priority = get_option( 'awac_priority' );
+
+            if ( empty( $priority ) || ! is_numeric( $priority ) ) {
+                // Set the default priority if it's not already set.
+				$priority = 10;
+                update_option( 'awac_priority', $priority );
+                
             }
 
-			return get_option('awac_priority');
-
+            // Ensure that the priority is an integer.
+            return (int) $priority;
 		}
 
 		/**
@@ -102,8 +105,8 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		public function register_sidebar() {
 			$args = array(
 	                'id' => 'add-widget-after-content',
-	                'name' => __( 'After Content' , 'add-widget-after-content'),
-	                'description' => __( 'This widget section shows after the content, but before comments on single post pages', 'add-widget-after-content' ),
+	                'name' => 'After Content' ,
+	                'description' => 'This widget section shows after the content, but before comments on single post pages',
 	                'before_widget' => '<div class="awac-wrapper"><div class="awac widget %1$s">',
 	                'after_widget' => '</div></div>',
 	                'before_title' => '<h4 class="widget-title">',
@@ -111,7 +114,7 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 	    	);
 
 			register_sidebar( apply_filters( 'awac_sidebar_arguments', $args ) );
-		} 
+		}
 
 		/**
 		 * Return the plugin slug.
@@ -139,8 +142,8 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		   	}
 			
 			//should the widget be shown after the content
-		   $ps_hide_widget = get_post_meta( get_the_ID(), '_awac_hide_widget', true ); 
-		   if( $ps_hide_widget ){ 
+		   $ps_hide_widget = get_post_meta( get_the_ID(), '_awac_hide_widget', true );
+		   if( $ps_hide_widget ){
 		   		return false;
 		   	}
 
@@ -153,21 +156,14 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 				if(isset($exclude_category[$cat]) == 1){
 					return false;
 				}
-				//return true;
+				
 			}
 
-			if(isset($exclude_type[$ps_type]) == 1){
+			if(isset($exclude_type[$ps_type]) == 1 || isset($exclude_format[$ps_format]) == 1){
 				return false;
-			}	
-			
-			if(isset($exclude_format[$ps_format]) == 1){
-				return false;
-			}	
-			
+			}
 
-			return(true);
-			
-
+			return true;
 		   
 		}
 
@@ -178,12 +174,22 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 * @return $content the post content plus the widget area content
 		 */
 		public function insert_after_content( $content ) {
-			if($this->show_awac(get_the_ID())){
-				$awac_content = $this->get_after_content();
-		    	$content.= apply_filters('awac_content', $awac_content );
+			if ( is_null( $content ) || ! is_string( $content ) ) {
+				return $content;
 			}
-		   	return $content;
+			
+			if ( $this->show_awac( get_the_ID() ) ) {
+				try {
+					$awac_content = $this->get_after_content();
+					$content .= apply_filters( 'awac_content', $awac_content );
+				} catch ( Exception $e ) {
+					$content .= apply_filters( 'awac_content', '' );
+				}
+			}
+			
+			return $content;
 		}
+
 
 		/**
 		 * Get what ever is to be in the widget area, but don't display it yet
@@ -191,7 +197,7 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 */
 		public function get_after_content() {
 			ob_start();
-			dynamic_sidebar( 'add-widget-after-content' ); 
+			dynamic_sidebar( 'add-widget-after-content' );
 			$sidebar = ob_get_contents();
 			ob_end_clean();
 			return $sidebar;
@@ -202,20 +208,16 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 */
 		public function after_content_create_metabox( $post_type ) {
 
-			//get all excluded post types
-			$exclude_type = (array)get_option('all_post_types');
+			$exclude_type = (array) get_option('all_post_types', array());
 
-			//get all excluded post formats
-			$exclude_format = (array)get_option('all_post_formats');
+			$exclude_format = (array) get_option('all_post_formats', array());
 
-			//get the current post format
-			$format = get_post_format();
-			
-			//if not an excluded post type and not an excluded post format
-			//TODO:: Metabox not shown on postformats that are excluded !isset( $exclude_format[$format] ) 
-		    if( !isset( $exclude_type[$post_type] ) ){
-		        add_meta_box( 'ps-meta', 'Widget After Content', array( $this, 'after_content_metabox' ), $post_type , 'normal', 'high' );
-			}else{
+			$format = get_post_format() ?: 'standard';
+
+			// If not an excluded post type and not an excluded post format
+			if ( ! isset( $exclude_type[$post_type] ) && ! isset( $exclude_format[$format] ) ) {
+				add_meta_box( 'ps-meta', 'Widget After Content', array( $this, 'after_content_metabox' ), $post_type , 'normal', 'high' );
+			} else {
 				remove_meta_box( 'ps-meta', $post_type, 'normal' );
 			}
 		}
@@ -225,33 +227,44 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 * @param  object $post the post object for the post
 		 */
 		public function after_content_metabox( $post ) {
-			
-			$ps_hide_widget = get_post_meta( $post->ID, '_awac_hide_widget', true ); 
-			$status = checked( $ps_hide_widget, 1, false );
-			$html = __( 'Remove widget after content for this post.', 'add-widget-after-content' );
-			$html .='<p>' . __('Yes', $this->plugin_slug ) . ': <input type="checkbox" name="ps_hide_widget"';
-			$html .= esc_attr( $status );
-			$html .='/></p>';
 
-			echo apply_filters( 'awac_metabox_content', $html );       
+			wp_nonce_field( 'awac_save_meta', 'awac_meta_metabox_nonce' );
+			$ps_hide_widget = get_post_meta( $post->ID, '_awac_hide_widget', true );
+			$status = checked( $ps_hide_widget, 1, false );
+			$html = esc_html__( 'Remove widget after content for this post.', 'add-widget-after-content' );
+			$html .= '<p>' . esc_html__( 'Yes', 'add-widget-after-content' ) . ': <input type="checkbox" name="ps_hide_widget"';
+			$html .= ' ' . esc_attr( $status) . ' /> ' ;
+			$html .= '</p>';
+
+			echo apply_filters( 'awac_metabox_content', $html );
 		}
 
 
 		/**
 		 * Saves _awac_hide_widget when the post is saved
 		 * @param  int $post_id the id of the current post being saved
+		 * @throws Exception if $_POST is not set
 		 */
 		public function after_content_save_meta( $post_id) {
-    
-		    //only do if post meta is set
-		    if ( isset( $_POST['ps_hide_widget'] ) ){
-		        update_post_meta( $post_id, '_awac_hide_widget', TRUE );
-		    } else {
-		        update_post_meta( $post_id, '_awac_hide_widget', FALSE );
-		    }
+			
+			if ( ! isset( $_POST ) ) {
+				return;
+			}
+
+			$nonce = stripslashes( $_POST['awac_meta_metabox_nonce'] ) ?? '';
+
+			if ( ! wp_verify_nonce( $nonce, 'awac_save_meta' ) ) {
+				return;
+			}
+
+		    $value = isset( $_POST['ps_hide_widget'] )
+		        ? (bool) $_POST['ps_hide_widget']
+		        : false;
+
+		    update_post_meta( $post_id, '_awac_hide_widget', $value );
 		    do_action( 'awac_after_save_meta');
 
-		} 	
+		}
 
 		/**
 		 * Load the plugin text domain for translation.
@@ -260,10 +273,19 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		public function load_textdomain() {
 
 			$domain = $this->plugin_slug;
+			if ( empty( $domain ) ) {
+				return;
+			}
+
 			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
+			$plugin_dir = plugin_dir_path( dirname( __FILE__ ) );
+			if ( ! is_dir( $plugin_dir ) || ! is_readable( $plugin_dir ) ) {
+				return;
+			}
+
 			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-			load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
+			load_plugin_textdomain( $domain );
 
 		}
 

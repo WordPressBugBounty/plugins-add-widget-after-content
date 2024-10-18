@@ -3,8 +3,8 @@ Contributors: apintop
 Donate link: https://paypal.me/arelthia?country.x=US&locale.x=en_US
 Tags: posts, widget
 Requires at least: 4.9
-Tested up to: 6.4.1
-Stable tag: 2.4.6
+Tested up to: 6.6
+Stable tag: 2.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -68,8 +68,12 @@ The widget area will not show on the pages that you have set to be the front pag
 
 
 == ChangeLog ==
-= 2.4.6 =
+
+= 2.5.1 =
 *  bump - No functional changes
+= 2.5 =
+*  Fix security issue
+*  Remove depreciated extensions
 = 2.4.5 =
 *  bump - No functional changes
 *  Fix broken links and remove ads

@@ -20,13 +20,13 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		/**
 		 * The ID of this plugin.
 		 * @access   private
-		 * @var      string    
+		 * @var      string
 		 */
 		private $plugin_name;
 		/**
 		 * The version of this plugin.
 		 * @access   private
-		 * @var      string    
+		 * @var      string
 		 */
 		private $version;
 
@@ -66,65 +66,8 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 	 	 * Renders the content of the awac options page  
 	 	 */
 		public function awac_options_display(){
-			//Get the tabs that need to be displayed
-			$tabs = $this->awac_get_tabs($this->awac_get_extension_settings());
-			require plugin_dir_path( __FILE__ ) . 'partials/awac-options-display.php';
+			require_once plugin_dir_path( __FILE__ ) . 'partials/awac-options-display.php';
 		}
-
-        /**
-         * Get the settings added by styles using filters
-         * @return array of extensions
-         *
-         * Other plugins can add to the awac_extensions setting during plugin activation
-         * $extensions =  get_option('awac_extensions');
-         * update_option('awac_extensions', extensionClass::register_awac_comments($extensions) );
-         *
-         * Plugins should
-         * public static function deactivate(){
-         * $extensions = get_option('awac_extensions');
-         * if(isset($extensions['awac_basic']['awac-comments'])) {
-         * unset($extensions['awac_basic']['awac-comments']);
-         * update_option('awac_extensions', $extensions);}}
-         *
-         *
-         * public static function register_awac_comments($extensions){
-         * $extensions['TAB']['extension-id']['id']= 'extension-id';
-         * $extensions['TAB']['extension-id']['name']= 'Extension Name';
-         * $extensions['TAB']['extension-id']['description']= 'Extension Description.';
-         * return $extensions;}
-         *
-         * TAB options are awac_basic, styles, addon
-         */
-        public function awac_get_extension_settings(){
-            $extensions = get_option( 'awac_extensions');
-
-            return $extensions;
-        }
-
-
-        /**
-         * @param $extension_settings
-         * @return mixed
-         */
-        public function awac_get_tabs($extension_settings){
-
-            $tabs['awac_basic']  = __( 'General', 'add-widget-after-content' );
-            if( ! empty( $extension_settings['styles'] ) ) {
-                $tabs['styles'] = __( 'Styles', 'add-widget-after-content' );
-            }
-
-            if( ! empty( $extension_settings['addons'] ) ) {
-
-                $tabs['addons'] = __( 'Add-ons', 'add-widget-after-content' );
-            }
-
-            $tabs = apply_filters( 'awac_add_tabs', $tabs );
-
-            return $tabs;
-        }
-
-
-
 
 		/**
 		 * Registers settings fields 
@@ -190,33 +133,6 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 				'awac_priority'
 			);
 
-
-			//add settings created to show on the styles tab
-			$settings = $this->awac_get_extension_settings();
-			if( ! empty( $settings['styles'] ) ) {
-				add_settings_section(
-				'awac_styles', 
-				__( 'Styles', 'add-widget-after-content' ),
-				array($this, 'awac_styles_section_display'), 
-				'styles'
-				);
-
-				register_setting( 'styles', 'awac_styles' );
-			}
-
-
-			//add settings created to show on the addon tab
-			if( ! empty( $settings['addons'] ) ) {
-				add_settings_section(
-				'awac_addons', 
-				__( 'Addons', 'add-widget-after-content' ),
-				 array($this, 'awac_addon_section_display'), 
-				'addons'
-				);
-
-				register_setting( 'addons', 'awac_addons' );
-			}
-
 		}
 
 		public function awac_styles_section_display(){
@@ -226,7 +142,6 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		public function awac_addon_section_display(){
 
 		}
-
 
 
 		/**
@@ -244,14 +159,16 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		 */
 		public function awac_type_boxes_display(){
 			$post_types = get_post_types();
+			if ( empty( $post_types ) ) {
+				return;
+			}
 			$options = (array)get_option('all_post_types');
-			
-			
+
 			foreach ( $post_types as $type ) {
-				if( !isset($options[$type]) ){
-					$options[$type] = 0;
+				if ( ! isset( $options[ $type ] ) ) {
+					$options[ $type ] = 0;
 				}
-				echo '<label><input name="all_post_types['. $type .']" id="all_post_types['. $type .']" type="checkbox" value="1" class="code" ' . checked( 1, $options[$type], false ) . ' />'. $type .'</label><br />' ;
+				echo '<label><input name="all_post_types[' . esc_attr( $type ) . ']" id="all_post_types[' . esc_attr( $type ) . ']" type="checkbox" value="1" class="code" ' . checked( 1, $options[ $type ], false ) . ' />' . esc_html( $type ) . '</label><br />' ;
 				
 			}
 		
@@ -262,66 +179,71 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		 * @doncullen 
 		 */
 		public function awac_postcategories_boxes_display(){
-			$post_categories = get_categories(); 
-			$options = (array)get_option('all_post_categories');
-			
-			
-			foreach ( $post_categories as $category ) {
-				$cat = $category->name;
-				if( !isset($options[$cat]) ){
-					$options[$cat] = 0;
+			$post_categories = get_categories();
+			if ( is_array( $post_categories ) ) {
+				$options = (array)get_option('all_post_categories');
+
+				foreach ( $post_categories as $category ) {
+					if ( is_object( $category ) ) {
+						$cat = $category->name;
+						if ( !isset( $options[ $cat ] ) ) {
+							$options[ $cat ] = 0;
+						}
+						echo '<label><input name="all_post_categories[' . esc_attr( $cat ) . ']" id="all_post_categories[' . esc_attr( $cat ) . ']" type="checkbox" value="1" class="code" ' . checked( 1, $options[ $cat ], false ) . ' />' . esc_html( $cat ) . '</label><br />' ;
+					}
 				}
-				echo '<label><input name="all_post_categories['. $cat .']" id="all_post_categories['. $cat .']" type="checkbox" value="1" class="code" ' . checked( 1, $options[$cat], false ) . ' />'. $cat .'</label><br />' ;
-				
 			}
-		
 		}
 
 
-		/**
-		 * Display the checkboxes for each post format
-		 * 
-		 */
-		public function awac_formats_boxes_display(){
-			
-			if ( current_theme_supports( 'post-formats' ) ) {
-			    $post_formats = get_theme_support( 'post-formats' );
-			    if ( is_array( $post_formats[0] ) ) {       
-			       foreach ($post_formats[0] as $post_format) {
-			       		$formats[$post_format] = $post_format;
-			       }
-			    }
-			}else{
-				echo __('Theme does not support post formats', 'add-widget-after-content');
-				return;
-			}
 
-			$options = (array)get_option('all_post_formats');
-			
-			foreach ( $formats as $format ) {
-				if( !isset($options[$format]) )
-				{
-					$options[$format] = 0;
-				}
-				echo '<label><input name="all_post_formats['. $format .']" id="all_post_formats['. $format .']" type="checkbox" value="1" class="code" ' . checked( 1, $options[$format], false ) . ' />'. $format .'</label><br />' ;
-				
-			}
-		
-		}
+/**
+ * Display the checkboxes for each post format
+ */
+public function awac_formats_boxes_display(){
+    $formats = [];
+
+    if ( current_theme_supports( 'post-formats' ) ) {
+        $post_formats = get_theme_support( 'post-formats' );
+
+        if ( is_array( $post_formats ) && isset( $post_formats[0] ) && is_array( $post_formats[0] ) ) {
+            foreach ($post_formats[0] as $post_format) {
+                $formats[$post_format] = $post_format;
+            }
+        }
+    } else {
+        echo esc_html__('Theme does not support post formats', 'add-widget-after-content');
+        return;
+    }
+
+    $options = (array)get_option('all_post_formats');
+
+    foreach ( $formats as $format ) {
+        if ( !isset($options[$format]) ) {
+            $options[$format] = 0;
+        }
+
+        echo '<label><input name="all_post_formats['. esc_attr($format) .']" id="all_post_formats['. esc_attr($format) .']" type="checkbox" value="1" class="code" ' . checked( 1, $options[$format], false ) . ' />'. esc_html($format) .'</label><br />';
+    }
+}
 
 		/**
 		 * Display the number field for setting the priority of the_content filter insert_after_content
 		 */
 		public function awac_priority_display(){
 			$option = get_option('awac_priority');
+			
+			if ( ! is_numeric($option) ) {
+				$option = 10; // Default priority value
+			}
+		
 			?>
 			<div>
 				<label for="awac_priority">
-					<input type='number' name='awac_priority' min="1" max="100" value='<?php echo $option ?>'>
-					<p class='description'><?php _e('Used to specify the order in which the widget area will be displayed.', 'add-widget-after-content') ?></p>
+					<input type='number' name='awac_priority' min="1" max="100" value='<?php echo intval($option) ?>'>
+					<p class='description'><?php esc_html__('Used to specify the order in which the widget area will be displayed.', 'add-widget-after-content') ?></p>
 				</label>
 			</div>
-
 		<?php
 		}
 
