@@ -14,7 +14,7 @@
  * Plugin URI: 			https://wordpress.org/plugins/add-widget-after-content/
  * Author: 				Arelthia Phillips
  * Author URI: 			https://arelthiaphillips.com
- * Version: 			2.5.2
+ * Version: 			2.5.3
  * License: 			GPL-3.0+
  * License URI:       	http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: 		add-widget-after-content
@@ -49,7 +49,7 @@ if ( !class_exists( 'AddWidgetAfterContent' ) ) {
 		 * @var      string
 		 */
 		protected $plugin_slug = 'add-widget-after-content';
-		protected $plugin_version = '2.5.2';
+		protected $plugin_version = '2.5.3';
 		protected $settings;
 		/**
 		 * Initialize the plugin 
