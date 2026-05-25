@@ -52,10 +52,10 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		 */
 		public function awac_add_options_page(){
 			add_theme_page(
-				__('Add Widget After Content Options', 'add-widget-after-content' ), 
-				__('Widget After Content', 'add-widget-after-content'), 
-				'manage_options', 
-				'awac-options', 
+				__('Add Widget After Content Options', 'add-widget-after-content' ),
+				__('Widget After Content', 'add-widget-after-content'),
+				'manage_options',
+				'awac-options',
 				array($this, 'awac_options_display')
 			);
 			
@@ -75,8 +75,8 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		public function awac_initialize_options(){
 			add_settings_section(
 				'awac_basic', 
-				__('Where to show the widget area', 'add-widget-after-content'), 
-				array($this, 'awac_basic_section_display'), 
+				__('Where to show the widget area', 'add-widget-after-content'),
+				array($this, 'awac_basic_section_display'),
 				'awac-options',
 				array('class'=>'subtitle')
 			);
@@ -85,8 +85,8 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 		 	 */
 			add_settings_field(
 				'all_post_categories', 
-				__('Post Categories', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post categories that are checked', 'add-widget-after-content' ). '</p>', 
-				array($this, 'awac_postcategories_boxes_display'), 
+				__('Post Categories', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post categories that are checked', 'add-widget-after-content' ). '</p>',
+				array($this, 'awac_postcategories_boxes_display'),
 				'awac-options',
 				'awac_basic'
 			);
@@ -97,8 +97,8 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 
 			add_settings_field(
 				'all_post_types', 
-				__('Post Types', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post types that are checked', 'add-widget-after-content' ). '</p>', 
-				array($this, 'awac_type_boxes_display'), 
+				__('Post Types', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post types that are checked', 'add-widget-after-content' ). '</p>',
+				array($this, 'awac_type_boxes_display'),
 				'awac-options',
 				'awac_basic'
 			);
@@ -108,8 +108,8 @@ if ( !class_exists( 'AddWidgetAfterContentAdmin' ) ) {
 			);
 			add_settings_field(
 				'all_post_formats', 
-				__('Post Formats', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post formats that are checked', 'add-widget-after-content' ). '</p>', 
-				array($this, 'awac_formats_boxes_display'), 
+				__('Post Formats', 'add-widget-after-content').'<p class="description">'. __('The widget will not show on post formats that are checked', 'add-widget-after-content' ). '</p>',
+				array($this, 'awac_formats_boxes_display'),
 				'awac-options',
 				'awac_basic'
 				
