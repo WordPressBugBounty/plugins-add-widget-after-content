@@ -3,7 +3,7 @@ Contributors: apintop
 Donate link: https://paypal.me/arelthia?country.x=US&locale.x=en_US
 Tags: posts, widget
 Requires at least: 4.9
-Tested up to: 7
+Tested up to: 7.0
 Stable tag: 2.5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
